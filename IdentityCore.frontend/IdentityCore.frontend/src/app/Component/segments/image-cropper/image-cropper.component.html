@@ -1,0 +1,25 @@
+
+<div matDialogTitle class="d-flex flex-column align-items-start">
+
+    <h1>
+        Crop Image
+
+    </h1>
+</div>
+<button class="btn btn-outline-primary" (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+<div class="d-flex flex-row flex-wrap" mat-dialog-content>
+    <div style="flex:50; width:30vw;">
+        <image-cropper [imageChangedEvent]="data.rawImage"
+                       [aspectRatio]="data.aspectRatio"
+                       [containWithinAspectRatio]="containWithinAspectRatio"
+                       [cropperMinWidth]="128"
+                       [maintainAspectRatio]="true"
+                       (imageCropped)="imageCropped($event)"></image-cropper>
+    </div>
+    <div style="flex:50; width:30vw; ">
+        <img [src]="croppedImage" style="width:30vw; object-fit:contain" [style.border]="croppedImage ? '1px solid black' : 'none'" />
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button type="button" class="btn btn-outline-secondary" (click)="closeDialog()" [mat-dialog-close]>crop</button>
+</div>

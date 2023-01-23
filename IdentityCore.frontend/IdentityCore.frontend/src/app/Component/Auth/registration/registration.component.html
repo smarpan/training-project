@@ -1,0 +1,70 @@
+<div class="d-flex flex-column w-50 mx-auto" style="max-width:400px; min-width:300px;">
+    <div>
+        <h2>Registration</h2>
+        <div *ngIf="errors!=[]">{{errors}}</div>
+        <form [formGroup]="registrationForm" (ngSubmit)="Registration()">
+            <small style="color:red">{{errors}}</small>
+            <div class="mb-3">
+
+                <label for="Email" class="form-label">Email address</label>
+                <input type="email" class="form-control" (focus)="resetEmailChecker()" (blur)="isAvailable(registrationForm.controls['email'].value)" [ngClass]="[(registrationForm.controls['email'].dirty && !availableEmail && !statusChange) ? 'is-invalid': (registrationForm.controls['email'].valid && availableEmail && !statusChange)?'is-valid':'']" formControlName="email" name="email" id="Email" aria-describedby="emailHelp">
+                <div class="invalid-feedback">Sorry, that email's taken. Try another?</div>
+                <div class="valid-feedback">Email Available</div>
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <div *ngIf="registrationForm.controls['email'].invalid && !statusChange && (registrationForm.controls['email'].dirty || registrationForm.controls['email'].touched)" class="alert alert-danger">
+
+                    <div *ngIf="registrationForm.controls['email'].hasError('required')">email is required.</div>
+                    <div *ngIf="registrationForm.controls['email'].hasError('email') ">please enter a email.</div>
+                </div>
+            </div>
+            <div class="mb-3">
+
+                <label for="Username" class="form-label">Username</label>
+                <input type="text" class="form-control" formControlName="userName" name="email" id="Username">
+                <div *ngIf="registrationForm.controls['userName'].invalid && (registrationForm.controls['userName'].dirty || registrationForm.controls['userName'].touched)" class="alert alert-danger">
+
+                    <div *ngIf="registrationForm.controls['userName'].hasError('required')">username is required.</div>
+                    <!--<div *ngIf="registrationForm.controls['userName'].hasError('email')">please enter a email.</div>-->
+                </div>
+                <!--<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+            </div>
+            <div class="mb-3">
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="Male" formControlName="gender" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Male
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="Female" formControlName="gender" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Female
+                    </label>
+                </div>
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+            </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password</label>
+                <input type="password" class="form-control" [ngClass]="[(registrationForm.controls['password'].valid && registrationForm.controls['password'].dirty) ? 'is-valid': '']" formControlName="password" name="password" id="Password">
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label"> Confirm Password</label>
+                <input type="password" class="form-control " [ngClass]="[(registrationForm.controls['confirmPassword'].valid && registrationForm.controls['confirmPassword'].dirty) ? 'is-valid': '']" formControlName="confirmPassword" id="confirmPassword">
+
+                <div *ngIf="registrationForm.controls['confirmPassword'].invalid && (registrationForm.controls['confirmPassword'].dirty || registrationForm.controls['confirmPassword'].touched)" class="alert alert-danger">
+
+                    <div *ngIf="registrationForm.controls['confirmPassword'].hasError('required')">Password is required.</div>
+                    <div *ngIf="registrationForm.controls['confirmPassword'].hasError('confirmedValidator')">Password and Confirm Password must be match.</div>
+                </div>
+            </div>
+            <!-- <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>-->
+            <button type="submit" [disabled]="!registrationForm.valid && !availableEmail" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+

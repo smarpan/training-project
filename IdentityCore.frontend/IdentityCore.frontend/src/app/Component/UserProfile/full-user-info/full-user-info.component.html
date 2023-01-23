@@ -1,0 +1,62 @@
+<div *ngIf="loader">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div matDialogTitle class="d-flex flex-column align-items-start ">
+
+    <h1>
+        Profile Info
+
+    </h1>
+</div>
+
+<p class="bg-info" *ngIf="hasAccessToUpdateUserData &&!loader">Email, gender,id cannot be changed</p>
+<form class="d-flex flex-column align-item-center " [formGroup]="updateForm" (ngSubmit)="onSubmit()" *ngIf="hasAccessToUpdateUserData" mat-dialog-content>
+
+    <div class="mx-auto d-flex justify-content-center bg-light" style="width:20vw;">
+        <label for="profileImage">
+            <img [src]="imagePreview" #fileInput style="width:5vw;object-fit:contain;" />
+        </label>
+        <input type="file" id="profileImage" formControlName="profileImage" (change)="fileRawSave($event)" class="form-control input-type-file" />
+    </div>
+    <div class="d-flex flex-row align-item-start">
+        <div class="ms-2">
+            <label for="Email">Email:</label>
+            <input type="email" id="Email" [value]="user.email" class="form-control" readonly />
+        </div>
+        <div class="ms-2">
+            <label for="userName">Username:</label>
+            <input type="text" id="userName" class="form-control" formControlName="userName" [disabled]="!hasAccessToUpdateUserData" />
+        </div>
+        <div class="ms-2">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" [disabled]="!hasAccessToUpdateUserData" />
+        </div>
+        <div class="ms-2 d-flex flex-column">
+            <label>Gender:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="Male" formControlName="gender" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Male
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="Female" formControlName="gender" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Female
+                </label>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<app-user-claim-info-dialog *ngIf="hasAccessToViewUserClaimsAndRoles &&!loader"></app-user-claim-info-dialog>
+
+<div  *ngIf="!hasAccessToViewUserData && !hasAccessToUpdateUserData &&!loader">
+    <p>You do not have the permission to view the profile.</p>
+    </div>
+    <div class="d-flex justify-content-end" mat-dialog-actions>
+        <button mat-button class="btn btn-outline-secondary" [mat-dialog-close] cdkFocusInitial>Close</button>
+        <button type="button" (click)="onSubmit()" *ngIf="hasAccessToUpdateUserData" class="btn btn-outline-primary ms-1">Update</button>
+    </div>

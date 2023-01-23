@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.min-max-size {
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.min-max-size-lg {
+  max-width: 500px;
+  min-width: 400px;
+}
+
+.mat-card-img {
+  object-fit: contain; /*this makes the image in src fit to the size specified below*/
+  width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 80%;
+}
+
+.textarea-post {
+  outline: none !important;
+  border-top: 2px solid white !important;
+}
+
+  .textarea-post:focus,
+  textarea-post:active {
+    box-shadow: 0 0 0 rgb(255, 255, 255);
+    border-top: 2px solid blue !important;
+  }
+
+.input-type-file {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+app-root {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+app-header{
+    height:10vh;
+}
+.screen-small{
+    display:flex;
+    flex-direction:column;
+}

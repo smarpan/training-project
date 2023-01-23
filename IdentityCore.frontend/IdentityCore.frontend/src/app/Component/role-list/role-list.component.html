@@ -1,0 +1,17 @@
+<!--<div class="alert alert-dismissible alert-success" *ngIf="successNotification" #notification>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <span style="font-weight:700;">{{shownMessage}}</span> successfully.
+</div>-->
+<app-create-role></app-create-role>
+<div class="d-flex flex-row flex-wrap" *ngIf="hasAccessToViewRole">
+    <div *ngFor="let role of roleList" class="m-1">
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{role.normalizedName}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{role.id}}</h6>
+
+                <a *ngIf="hasAccessToDeleteRole" class="card-link btn btn-outline-primary" (click)="DeleteRole(role.name)">Delete Role</a>
+            </div>
+        </div>
+    </div>
+

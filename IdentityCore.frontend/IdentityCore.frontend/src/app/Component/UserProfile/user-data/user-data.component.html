@@ -1,0 +1,20 @@
+<h1 style="text-align:center; color:blueviolet;">Profile</h1>
+<mat-card class="w-50 mx-auto min-max-size-lg">
+    <mat-card-header>
+        <img mat-card-avatar [src]="'data:image/png;base64,' + user.profileImage" />
+        <mat-card-title>
+            {{user.userName}}
+            <button class="btn btn-outline-primary" *ngIf="!alreadyAddedToMessenger" (click)="addToMessenger()">Add To Messenger</button>
+        </mat-card-title>
+    <p *ngIf="alreadyAddedToMessenger">already added</p>
+        <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content style="white-space: pre-wrap;">
+        <div class="d-flex flex-column justify-content-around">
+            <span>Phone: {{user.phoneNumber}}</span>
+            <span>Gender: {{user.gender}}</span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+    </mat-card-actions>
+</mat-card>

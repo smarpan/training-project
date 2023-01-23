@@ -1,0 +1,8 @@
+<div *ngIf="!loader">
+    <div *ngFor=" let p of postList" class="mt-2">
+        <app-post-container [p]="p" (postDeleted)="postDeleted($event)"></app-post-container>
+    </div>
+</div>
+<!--<div *ngIf="loader">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>-->

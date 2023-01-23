@@ -1,0 +1,2 @@
+G:\cybrient\Angular\IdentityCore.frontend\IdentityCore.frontend\obj\Debug\IdentityCore.frontend.esproj.SuggestedBindingRedirects.cache
+G:\cybrient\Angular\IdentityCore.frontend\IdentityCore.frontend\obj\Debug\IdentityCore.frontend.esproj.CoreCompileInputs.cache

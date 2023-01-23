@@ -1,0 +1,15 @@
+
+ <div class="d-flex flex-row ">
+    <ul class="d-flex flex-column">
+        Roles:
+        <li class=" border-bottom d-inline-flex align-items-center p-1" *ngFor="let r of user.role">
+            {{r}}&nbsp;<mat-icon *ngIf="hasAccessToRevokeRole" fontIcon="close" data-bs-toggle="tooltip" (click)="revokeAccessToRole(r,user)" title="revoke access"></mat-icon>
+        </li>
+    </ul>
+    <ul class="d-flex flex-column ">
+        Claims:
+        <li class="border-bottom d-inline-flex align-items-center p-1" *ngFor="let c of user.claim">
+            {{c.type}}&nbsp; <mat-icon *ngIf="hasAccessToRemoveClaimFromUser" data-bs-toggle="tooltip" title="revoke access" fontIcon="close" (click)="revokeAccessToClaim(c.type,user)"></mat-icon>
+        </li>
+    </ul>
+</div>

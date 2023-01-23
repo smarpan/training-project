@@ -1,0 +1,7 @@
+<h4>Live chat</h4>
+<p>{{initialGreetings}}</p>
+<input type="text" class="form-control" [(ngModel)]="sendMessage" />
+<button type="button" (click)="sendMessageFunc()">send to {{data.recieverUsername}}</button>
+<p *ngFor="let message of messageStore"><span style="font-weight:600;">{{message.senderUsername}}:</span> {{message.message}}</p>
+
+

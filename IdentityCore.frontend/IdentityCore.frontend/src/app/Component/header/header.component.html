@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="!this.loader.getLoading()">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="">IdentityCore</a>
+        <button class="navbar-toggler"
+                matBadge="hmm"
+                matBadgePosition="before"
+                matBadgeColor="primary"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarColor03"
+                aria-controls="navbarColor03"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item" *ngIf="isAuthenticated" (mouseenter)="hoverUsername=true" (mouseleave)="hoverUsername=false" style="cursor:pointer; font-weight:600;">
+                    <a class="nav-link" *ngIf="hoverUsername" [routerLink]="['profile/'+ myId]">{{user.userName}}</a>
+                </li>
+                <li class="nav-item" *ngIf="isAuthenticated" (mouseenter)="hoverUsername=true" (mouseleave)="hoverUsername=false" style="cursor:pointer;">
+                    <img [src]="imagePreview" #fileInput class="nav-link" [routerLink]="['profile/'+ myId]" style="width:3vw;object-fit:contain;" />
+                </li>
+                <li class="nav-item  " *ngIf="isAuthenticated">
+                    <a class="nav-link d-inline-flex flex-row" routerLink="chat">
+                        <mat-icon class="align-self-start">question_answer</mat-icon>
+                        <span class="align-self-start ms-1">messenger</span>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="!isAuthenticated">
+                    <a class="nav-link" routerLink="login">Login</a>
+                </li>
+                <li class="nav-item" *ngIf="isAuthenticated">
+                    <a class="nav-link" routerLink="addpost">Create Post</a>
+                </li>
+
+                <li class="nav-item" *ngIf="hasAccessToViewUserList">
+                    <a class="nav-link" routerLink="userlist">Users</a>
+                </li>
+                <li class="nav-item" *ngIf="!isAuthenticated">
+                    <a class="nav-link" routerLink="registration">Registration</a>
+                </li>
+
+                <li class="nav-item" *ngIf="isAuthenticated && hasAccessToViewRole">
+                    <a class="nav-link" routerLink="roles">Roles</a>
+                </li>
+                <li class="nav-item" *ngIf="isAuthenticated" style="cursor:pointer;">
+                    <a class="nav-link" (click)="Logout()">Logout</a>
+                </li>
+
+
+                <!--<li class="nav-item dropdown" style="cursor:pointer;" *ngIf="user.email!==''">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.userName}}</a>
+                    <div class="dropdown-menu ">
+                        <a class="dropdowm-item" routerLink="roles" *ngIf="hasAccessToViewRoleComponent">Roles</a>
+                        <a class="dropdown-item" (click)="Logout()">Logout</a>
+                    </div>
+                </li>-->
+                <!--<li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>-->
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </li>-->
+            </ul>
+
+            <!-- <form class="d-flex">
+                <input class="form-control me-sm-2" type="search" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>-->
+
+        </div>
+    </div>
+</nav>

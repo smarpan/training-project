@@ -1,0 +1,14 @@
+<div *ngIf="hasAccessToCreateRole">
+    <h4>Create Role:</h4>
+    <p style="color:red;" *ngIf="message==''">{{message}}</p>
+    <form [formGroup]="createForm" class="d-flex flex-row align-items-end" (ngSubmit)="CreateRole(createForm.controls['roleName'].value)">
+
+        <div class="ms-2">
+            <label for="roleName" class="form-label">Role:</label>
+            <input type="text" formControlName="roleName" class="form-control" id="roleName" />
+        </div>
+        <div class=" ms-2">
+            <button type="submit" [disabled]="!createForm.valid" class="btn btn-outline-primary">Create</button>
+        </div>
+    </form>
+</div>

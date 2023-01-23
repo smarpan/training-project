@@ -1,0 +1,65 @@
+<!--<div *ngIf="loader">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>-->
+<div class="w-100 mx-auto" style="height:90vh;"*ngIf="!this.load.getLoading()">
+    <div class=" w-100" [ngClass]="{'screen-small':smallScreenLayout, 'd-inline-flex flex-row':!smallScreenLayout}" style="height:90vh;">
+
+        <div class=" d-flex flex-column " [ngClass]="{'align-self-center':smallScreenLayout}" *ngIf="!smallScreenLayout || selectedChat.contactUserId=='default'" style="width:fit-content; min-width:300px; height:100%;">
+            <h1 class="mx-auto">Contact List</h1>
+            <mat-card *ngFor="let t of contactList" class="mx-auto" style="width:400px;">
+                <mat-card-header>
+                    <img mat-card-avatar [src]=" 'data:image/png;base64,'+ t.contactProfileImage" />
+                    <mat-card-title class="my-auto" (click)="selectChat(t)" style="overflow:hidden;">{{t.contactUserName}}</mat-card-title>
+                    <mat-card-subtitle *ngFor="let lm of lastMessage | filter:t.contactUserId">
+                        <span style="font-weight:500; color:black;">{{lm.userNameToPrint}}</span>: {{lm.message}}
+                    </mat-card-subtitle>
+                    <button mat-icon-button class="ms-auto border-0 bg-white" [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="delete(t)">
+                            <mat-icon>delete</mat-icon> Delete
+                        </button>
+                    </mat-menu>
+                </mat-card-header>
+            </mat-card>
+        </div>
+
+        <div class=" d-flex flex-column" style="min-width:300px; flex:1; height:100%;">
+            <div [ngClass]="{'d-inline-flex flex-row':smallScreenLayout}">
+                <mat-icon class="align-self-center" *ngIf="smallScreenLayout && selectedChat.contactUserId!='default'" (click)="resetSelectedChat()">
+                    arrow_circle_left
+                </mat-icon>
+                <mat-card class="w-100" *ngIf="selectedChat.contactUserId!='default'">
+                    <mat-card-header>
+                        <img mat-card-avatar [src]=" 'data:image/png;base64,'+ selectedChat.contactProfileImage" />
+                        <mat-card-title class="my-auto">{{selectedChat.contactUserName}}</mat-card-title>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+            <div class="message-holder" style="overflow-y:scroll;">
+                <div class="w-100 d-flex flex-column" *ngFor="let message of messageStore | filter:selectedChat.contactUserId">
+                    <div [ngClass]="{'ms-auto':myId == message.senderId}" class="m-2">
+                        <div class="rounded p-2 bg-secondary" style="width:fit-content">
+                            <span style="font-weight:600;">
+                                <span *ngIf="myId == message.senderId">You</span>
+                                <span *ngIf="myId != message.senderId">{{message.senderUsername}}</span>:
+                            </span>
+                            <span style="font-weight:400; color:white;">{{message.message}}</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedChat.contactUserId!='default'" class="d-flex flex-inline-row mt-auto">
+                <input type="text" class="form-control" [(ngModel)]="sendMessage" />
+                <button type="button" class="btn btn-outline-primary d-inline-flex align-items-center" (click)="sendMessageFunc()" cdkInitialFocus>
+                    <span>send</span>
+                    <mat-icon>send</mat-icon>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+

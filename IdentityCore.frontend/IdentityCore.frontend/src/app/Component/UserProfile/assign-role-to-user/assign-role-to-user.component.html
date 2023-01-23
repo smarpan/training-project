@@ -1,0 +1,25 @@
+<div *ngIf="hasAccessToAssignRole">
+    <h4>Assign Role:</h4>
+    <form [formGroup]="assignRoleForm" class="d-flex flex-row align-items-end" (ngSubmit)="AssignRole()">
+        <div class=" ms-2">
+
+            <label for="userEmail" class="form-label">Email address</label>
+
+            <input type="email" class="form-control" (focus)="resetChecker()"
+                   (blur)="isAvailable(assignRoleForm.controls['userEmail'].value)"
+                   [ngClass]="[(assignRoleForm.controls['userEmail'].dirty && !availableEmail && !statusChange) ? 'is-valid': (assignRoleForm.controls['userEmail'].dirty && availableEmail && !statusChange)?'is-invalid':'']"
+                   formControlName="userEmail" name="userEmail" id="userEmail">
+            <!--<div class="invalid-feedback">No User with above email.</div>
+        <div class="valid-feedback">User Selected.</div>-->
+        </div>
+
+        <!--<div class="ms-2">
+            <label for="roleName" class="form-label">Role: <sub>(readonly)</sub></label>
+            <input type="text" value="roleName" formControlName="roleName" class="form-control" id="roleName" />
+        </div>-->
+        <div class=" ms-2">
+            <button type="submit" [disabled]="submitDisabled|| roleName=='' || assignRoleForm.invalid" class="btn btn-outline-primary">Assign {{roleName}}</button>
+        </div>
+    </form>
+
+</div>

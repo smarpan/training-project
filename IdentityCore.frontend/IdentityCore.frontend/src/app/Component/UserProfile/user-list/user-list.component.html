@@ -1,0 +1,49 @@
+<div *ngIf="loader">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<ul class="list-group" *ngIf="hasAccessToViewUserList && !loader">
+    <li class="list-group-item active d-inline-flex align-items-center p-1">
+        <span style="font-weight:700;">All Users</span>
+        <input class="form-control ms-2" style="width:200px;" type="search" placeholder="search" [(ngModel)]="filterString" />
+    </li>
+    <li class="list-group-item d-flex flex-row flex-wrap" *ngFor="let user of userList | filter:filterString">
+        <div class="d-flex flex-column">
+            <span style="font-weight:700;">{{user.email}}</span>
+            <small class="ms-2 text-muted">{{user.id}}</small>
+        </div>
+        <div class="ms-auto">
+            <a *ngIf="hasAccessToViewUserData" class="card-link btn btn-outline-primary me-1" (click)="openDialogForPersonalInfo(user.email,user.id)">Profile Info</a>
+            <!--<a *ngIf="hasAccessToViewUserClaimsAndRoles" class="card-link btn btn-outline-primary me-1" (click)="openDialogForClaimsAndRoles(user.email,user.id)">Claims</a>-->
+            <a *ngIf="hasAccessToAddClaimToUser" class="card-link btn btn-outline-primary me-1" (click)="openDialogForAssigningClaims(user.email)">Assign Claim</a>
+        </div>
+    </li>
+</ul>
+<h2 *ngIf="!hasAccessToViewUserList && !loader" style="color:red;text-align:center;">You are not authorized to view this page</h2>
+
+
+<!--for future reference.-->
+<!--<div class="d-flex flex-row flex-wrap justify-content-center" *ngIf="hasAccessToViewUserList">
+    <div *ngFor="let user of userList" class="m-1">
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{user.email}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{user.id}}</h6>
+                 <ul class="card-text" *ngIf="isAdmin">
+                     Roles:
+                     <li class="listItem border-bottom" *ngFor="let r of user.role">
+                         {{r}}&nbsp;&nbsp;<i class="bi bi-x-octagon-fill" data-bs-toggle="tooltip" (click)="revokeAccessToRole(r,user)" title="revoke access"></i>
+                     </li>
+                 </ul>
+                 <ul class="card-text list-inline" *ngIf="isAdmin">
+                     Claims:
+                     <li class="listItem border-bottom" *ngFor="let c of user.claim">
+                         {{c.type}}&nbsp;&nbsp;<i class="bi bi-x-octagon-fill" data-bs-toggle="tooltip" (click)="revokeAccessToClaim(c.type,user)" title="revoke access"></i>
+                     </li>
+                 </ul>
+
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    </div>
+</div>-->

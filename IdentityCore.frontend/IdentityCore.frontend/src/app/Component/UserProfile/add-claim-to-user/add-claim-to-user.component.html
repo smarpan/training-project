@@ -1,0 +1,23 @@
+<div *ngIf="hasAccessToAddClaimToUser">
+    <h4 matDialogTitle>Assign Claim To User</h4>
+    <form [formGroup]="AssignClaimToUserForm" class="d-flex flex-row align-items-end" (ngSubmit)="Submit()" mat-dialog-content>
+
+        <div class="ms-2">
+            <label for="email">email</label>
+            <input type="email" class="form-control"
+                   (focus)="resetChecker()"
+                   (blur)="isAvailable(AssignClaimToUserForm.controls['userEmail'].value)"
+                   [ngClass]="[(AssignClaimToUserForm.controls['userEmail'].dirty && !availableEmail && !statusChange) ? 'is-valid': (AssignClaimToUserForm.controls['userEmail'].dirty && availableEmail && !statusChange)?'is-invalid':'']"
+                   formControlName="userEmail" id="email" readonly/>
+            <!--[ngClass]=" (AssignClaimToUserForm.controls['userEmail'].dirty && availableEmail && !statusChange)?'is-invalid':''"-->
+        </div>
+        <div class="ms-2">
+            <label for="claim"></label>
+            <input type="text" class="form-control" formControlName="claimName" id="claim" />
+        </div>
+        <button type="submit" [disabled]="AssignClaimToUserForm.invalid || submitDisabled" class="btn btn-outline-primary ms-2">Assign Claim</button>
+    </form>
+    <div mat-dialog-actions>
+        <button mat-button class="btn btn-outline-secondary" [mat-dialog-close] cdkFocusInitial>Close</button>
+    </div>
+</div>

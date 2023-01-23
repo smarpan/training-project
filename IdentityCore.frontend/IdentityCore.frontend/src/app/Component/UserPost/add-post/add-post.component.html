@@ -1,0 +1,32 @@
+<div class="d-flex flex-column justify-content-center" *ngIf="hasAccessToAddPost">
+    <form class="d-flex flex-column w-50 mx-auto min-max-size" (ngSubmit)="onSubmit()">
+        <h1>Post something!</h1>
+        <div class="ms-2 mt-1 d-flex flex-column border">
+            <textarea class="form-control border-0 textarea-post" maxlength="50" [(ngModel)]="post.status" name="status" placeholder="write something!" style="resize:none;" rows="3"></textarea>
+            <div>
+                <label class="rounded border border-primary p-1" for="file">
+                    <i class="bi bi-image-alt" data-bs-toggle="tooltip" title="Add image" style="color:blue;"></i>&nbsp;Photos
+                </label>
+                <input type="file" accept="image/*" class="input-type-file" (change)="fileRawSave($event)" #fileInput name="image" id="file" />
+            </div>
+        </div>
+        <div class="ms-2 mt-1 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Publish</button>
+        </div>
+    </form>
+    <mat-card *ngIf="post.image || post.status" class="w-50 mx-auto min-max-size">
+        <mat-card-header>
+            <img mat-card-avatar [src]="user.profileImage" />
+            <mat-card-title>{{post.userName}}</mat-card-title>
+            <mat-card-subtitle>date created</mat-card-subtitle>
+        </mat-card-header>
+        <img *ngIf="post.image" mat-card-image [src]="imagePreview" alt="Photo" />
+
+        <mat-card-content *ngIf="post.status" style="white-space: pre-wrap;">
+            <p>
+                {{post.status}}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>
+<h2 *ngIf="!hasAccessToAddPost && !loader" style="color:red;text-align:center;">You are not authorized to view this page</h2>
